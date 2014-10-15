@@ -1,23 +1,7 @@
-/**
- *  File: lightbox.js
- *  Directive: abLightbox
- *  Description: Adds a lightbox to the page. Compiles a remove directive when initialised
- *  Demo:
- *
- *  <button ab-lightbox='{"element" : "lbContent"}'>open lightbox</button>
- *
- *  <div class="lightbox" id="lbContent">
- *     <h2>Light box content</h2>
- *  </div>
- *
- *  Options:
- *
- *  className - class name to be added to active lightbox
- *  trigger - auto/manual
- *  element - content element
- *  type - normal/iframe
- */
- .directive('abLightbox', ['$compile', function ($compile) {
+'use strict';
+
+angular.module('application', [])
+        .directive('abLightbox', ['$compile', function ($compile) {
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {

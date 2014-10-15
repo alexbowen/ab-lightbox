@@ -1,4 +1,5 @@
 .DS_Store
+demo/bower_components
 .idea
 *.log
 *.iml
