@@ -1,6 +1,6 @@
 /**
  *  File: lightbox.js
- *  Directive: mnsLightbox
+ *  Directive: abLightbox
  *  Description: Adds a lightbox to the page. Compiles a remove directive when initialised
  *  Demo:
  *
