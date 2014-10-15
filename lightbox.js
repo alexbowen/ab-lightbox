@@ -10,7 +10,7 @@
                 'kind'          : 'normal'
             };
 
-            options = angular.extend(defaults, angular.fromJson(attr.ngLightbox));
+            options = angular.extend(defaults, angular.fromJson(attr.abLightbox));
 
             // check if element is passed by the user
             options.element = typeof options.element === 'string' ? document.getElementById(options.element) : options.element;
