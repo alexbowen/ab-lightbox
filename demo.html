@@ -1,0 +1,51 @@
+<style>
+	#overlay {
+	    -webkit-transition: all .2s;
+	    -moz-transition: all .2s;
+	    -ms-transition: all .2s;
+	    -o-transition: all .2s;
+	    transition: all .2s;
+	    height: 100%;
+	    width: 100%;
+	    display: inline-block;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    z-index: 10;
+	    background: black;
+	    opacity: 0;
+	}
+
+	#overlay.overlay-active {
+	    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+	    opacity: .8;
+	}
+
+	.lightbox {
+	    border-radius: 6px;
+	    background: white;
+	    box-shadow: 0 0 16px rgba(0, 0, 0, .4);
+	    position: absolute;
+	    width: 500px;
+	    top: 0;
+	    left: 50%;
+	    margin-top: 20%;
+	    margin-left: -250px;
+	    z-index: 20;
+	    opacity: 0;
+	    display: none;
+	    padding:1em 2em 2em;
+	    text-align:center
+	}
+
+	.lightbox.lightbox-active {
+	    display: inline-block;
+	    opacity: 1;
+	}
+</style>
+
+<button ab-lightbox='{"element" : "info"}'>open lightbox</button>
+
+<div class="lightbox" id="info">
+    <h2>Light box content</h2>
+</div>

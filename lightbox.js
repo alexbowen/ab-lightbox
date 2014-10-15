@@ -4,10 +4,10 @@
             var lightbox, options, overlay;
 
             var defaults = {
-                'class_name': false,
-                'trigger': 'manual',
-                'element': element[0],
-                'kind': 'normal'
+                'class_name'    : false,
+                'trigger'       : 'manual',
+                'element'       : element[0],
+                'kind'          : 'normal'
             };
 
             options = angular.extend(defaults, angular.fromJson(attr.ngLightbox));
@@ -15,22 +15,20 @@
             // check if element is passed by the user
             options.element = typeof options.element === 'string' ? document.getElementById(options.element) : options.element;
 
-            var add_overlay = function () {
-                if(document.getElementById('overlay')) {
-                    return;
-                }
+            var addOverlay = function () {
+                if(document.getElementById('overlay')) return;
 
                 // compiling when we add it to have the close directive kick in
                 overlay = $compile('<div id="overlay" ab-lightbox-close/>')(scope);
 
                 // add a custom class if specified
-                options.class_name && overlay.addClass(options.class_name);
+                if (options.class_name) overlay.addClass(options.class_name);
 
                 // append to dom
                 angular.element(document.body).append(overlay);
 
                 // load iframe options if defined
-                options.kind === 'iframe' && load_iframe();
+                if (options.kind === 'iframe') loadIframe();
 
                 // we need to flush the styles before applying a class for animations
                 window.getComputedStyle(overlay[0]).opacity;
@@ -38,18 +36,18 @@
                 angular.element(options.element).addClass('lightbox-active');
             };
 
-            var load_iframe = function(){
+            var loadIframe = function(){
                 options.element = options.element || 'lightbox-iframe';
                 var iframe = "<div id='" + options.element + "' class='lightbox'><iframe frameBorder=0 width='100%' height='100%' src='" + attr.href + "'></iframe></div>";
                 angular.element(document.body).append(iframe);
             };
 
             if (options.trigger === 'auto') {
-                add_overlay();
+                addOverlay();
             } else {
 
                 element.bind('click', function(event) {
-                    add_overlay();
+                    addOverlay();
                     event.preventDefault();
                     return false;
                 });
@@ -63,26 +61,28 @@
             angular.forEach(transition_events, function(ev){
                 element.bind(ev, function(){
                     // on transitions, when the overlay doesnt have a class active, remove it
-                    !angular.element(document.getElementById('overlay')).hasClass('overlay-active') && angular.element(document.getElementById('overlay')).remove();
+                    if (!angular.element(document.getElementById('overlay')).hasClass('overlay-active')) {
+                        angular.element(document.getElementById('overlay')).remove();
+                    }
                 });
             });
 
             // binding esc key to close
             angular.element(document.body).bind('keydown', function(event){
-                event.keyCode === 27 && remove_overlay();
+                if (event.keyCode === 27) removeOverlay();
             });
 
             // binding click on overlay to close
             element.bind('click', function(event) {
-                remove_overlay();
+                removeOverlay();
             });
 
-            var remove_overlay = function(){
+            var removeOverlay = function(){
                 var overlay = document.getElementById('overlay');
                 angular.element(document.getElementsByClassName('lightbox-active')[0]).removeClass('lightbox-active');
 
                 // fallback for ie8 and lower to handle the overlay close without animations
-                if(angular.element(document.documentElement).hasClass('lt-ie9')){
+                if (angular.element(document.documentElement).hasClass('lt-ie9')) {
                     angular.element(overlay).remove();
                 } else {
                     angular.element(overlay).removeClass('overlay-active');
